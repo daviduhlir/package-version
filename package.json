@@ -1,6 +1,6 @@
 {
   "name": "@david.uhlir/package-version",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Package versioning with prompt",
   "main": "dist/version.js",
   "types": "dist/version.d.ts",
