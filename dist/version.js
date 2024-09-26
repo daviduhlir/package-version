@@ -37,8 +37,8 @@ const args = terminal_ui_1.Args.parse({
         short: 'v',
         long: 'version',
         type: terminal_ui_1.ArgOptionType.String,
-        description: 'Type of version incrementation, or custom version'
-    }
+        description: 'Type of version incrementation, or custom version',
+    },
 });
 function promptVersion() {
     return __awaiter(this, void 0, void 0, function* () {
