@@ -14,7 +14,7 @@
     "esModuleInterop": true
   },
   "files": [
-    "./lib/index.ts"
+    "./lib/version.ts"
   ],
   "filesGlob": [
     "./lib/**/*.ts",
