@@ -36,22 +36,27 @@ function error(text: string) {
   process.exit()
 }
 
-async function readVersion() {
-  let version
-  try {
-    version = JSON.parse(await fs.readFile(path.resolve('./package.json'), 'utf-8')).version
-  } catch (e) {
-    error('Previous version can not be loaded from package.json')
+async function readPackage() {
+  let level = 0
+  let packageJson
+  for(;level < 10; level++) {
+    try {
+      packageJson = JSON.parse(await fs.readFile(path.resolve(new Array(level).join('../'), './package.json'), 'utf-8'))
+    } catch (e) {}
   }
-  return version
+  if (!packageJson) {
+    error('Can not read package.json')
+  }
+  return packageJson
 }
 
 ;(async function () {
   try {
-    console.log('Previous version:', await readVersion())
+    const packageJson = await readPackage()
+    console.log(`Package ${packageJson.name} Current version ${packageJson.version}`)
     const version = args.version ? args.version : await promptVersion()
     await Exec.cmd('npm', 'version', version)
-    console.log('New version:', await readVersion())
+    console.log('New version:', (await readPackage()).version)
     process.exit()
   } catch (e) {
     console.log(e)

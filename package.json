@@ -29,6 +29,6 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@david.uhlir/terminal-ui": "^1.0.2"
+    "@david.uhlir/terminal-ui": "^1.0.3"
   }
 }

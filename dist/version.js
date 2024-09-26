@@ -64,26 +64,31 @@ function error(text) {
     console.error('Error', text);
     process.exit();
 }
-function readVersion() {
+function readPackage() {
     return __awaiter(this, void 0, void 0, function* () {
-        let version;
-        try {
-            version = JSON.parse(yield fs_1.promises.readFile(path.resolve('./package.json'), 'utf-8')).version;
+        let level = 0;
+        let packageJson;
+        for (; level < 10; level++) {
+            try {
+                packageJson = JSON.parse(yield fs_1.promises.readFile(path.resolve(new Array(level).join('../'), './package.json'), 'utf-8'));
+            }
+            catch (e) { }
         }
-        catch (e) {
-            error('Previous version can not be loaded from package.json');
+        if (!packageJson) {
+            error('Can not read package.json');
         }
-        return version;
+        return packageJson;
     });
 }
 ;
 (function () {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log('Previous version:', yield readVersion());
+            const packageJson = yield readPackage();
+            console.log(`Package ${packageJson.name} Current version ${packageJson.version}`);
             const version = args.version ? args.version : yield promptVersion();
             yield terminal_ui_1.Exec.cmd('npm', 'version', version);
-            console.log('New version:', yield readVersion());
+            console.log('New version:', (yield readPackage()).version);
             process.exit();
         }
         catch (e) {
