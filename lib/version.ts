@@ -59,7 +59,6 @@ async function readPackage() {
     console.log('New version:', (await readPackage()).version)
     process.exit()
   } catch (e) {
-    console.log(e)
     error(`Failed to change version: ${e.message}`)
   }
 })()
